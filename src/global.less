@@ -1,0 +1,502 @@
+@import '~antd/es/style/themes/default.less';
+
+@base_color: #fcfcfc;
+@card_color: #fafafa;
+@black_color:#f5f5f5;
+
+html,
+body,
+
+
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+.head_upload_img{
+}
+
+.head_upload_img >.ant-upload{
+  border-radius: 33em !important;
+  width: 6em  !important;
+  height: 6em  !important;
+  min-width: 6em  !important;
+}
+.head_upload_img >.ant-upload > span{
+  min-width: 6em  !important;
+}
+
+.ant-layout {
+  min-height: 100vh;
+  background-color: #fcfcfc !important;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+.wid100{
+  width: 100%;
+}
+.fg_box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  line-height:0.9 ;
+}
+/*水平和竖直方向居中*/
+.fg_box_hv_center {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fg_box_l {
+  float: left;
+}
+.fg_box_r {
+  float: right;
+}
+
+.fg_box_as {
+  align-items: flex-start;
+  font-size:12px;
+}
+/*竖直方向居中*/
+.fg_box_ac {
+  align-items: center;
+}
+
+/*竖直方向顶部*/
+.fg_box_fs {
+  align-items: flex-start;
+}
+.fg_box_f1{
+  flex: 1;
+}
+.fg_box_f2{
+  flex: 2;
+}
+.fg_box_f3{
+  flex: 3;
+}
+/*竖直方向底部*/
+.fg_box_ae {
+  align-items: flex-end;
+}
+/*水平方向居中*/
+.fg_box_pc {
+  justify-content: center;
+}
+/*水平方向尾部*/
+.fg_box_pe {
+  justify-content: flex-end;
+}
+/*水平方向左右无缝隙间隔分布*/
+.fg_box_pb {
+  justify-content: space-between;
+}
+
+.fg_box_ver {
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+}
+/*竖直方向布局*/
+.fg_box_column {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+/*水平方向布局*/
+.fg_box_row {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+    &-thead > tr,
+    &-tbody > tr {
+      > th,
+      > td {
+        white-space: pre;
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+
+}
+
+
+.btn_marT5{
+  margin-top: 2em;
+}
+
+
+.btnMar{
+  margin:0 1em ;
+}
+.fg_input_wid{
+  width: 75%;
+}
+.item_laber{
+  text-align: right;
+  width: 10em;
+  margin-right: 0.5em !important;
+}
+.item_input{
+  width: 17em;
+}
+.item_textArea{
+  width: 29em;
+}
+.marT05{
+  margin-top: 0.5em !important;
+}
+.marB05{
+  margin-bottom: 0.5em;
+}
+.marT1{
+  margin-top: 1em;
+}
+.marT2{
+  margin-top: 2em;
+}
+.marT3{
+  margin-top: 3em;
+}
+.search_mb{margin-bottom: 0.5em;}
+
+.overflowY{
+  overflow-y:auto;
+}
+
+
+
+
+
+
+.no-form-item-content-suffix {
+  padding-left: 0px !important;
+  box-sizing: border-box;
+}
+.multi-value-item {
+  white-space: normal !important;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.suffix_button{
+  position: absolute;
+  margin-left: 1rem;
+}
+
+
+.title_box{
+  border: 1px solid #f1f1f1;
+  padding: 10px;
+}
+
+.ant-comment-inner {
+  display: flex;
+  padding: 0 !important;
+}
+
+
+
+.radio-group {
+  display: inline-block;
+  width: 400px;
+  line-height: 40px;
+  white-space: normal;
+}
+.bg_white{
+  background:#FFFFFF;
+}
+/*
+noform 表单样式
+ */
+
+.no-form-item-control{
+  isplay: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+.form-require{
+  color: red;
+}
+
+.no-form-item-error {
+  color: red;
+  position: absolute;
+  top: 0.5em;
+  right: -7rem;
+}
+.no-form-item-inline {
+  display: inline-block;
+  vertical-align: baseline!important;
+  width: 50%;
+}
+/*
+ant-design 样式覆盖
+ */
+//卡片标题样式
+.ant-card-head-title {
+  display: inline-block;
+  flex: 1 1;
+  padding: 5px 0 !important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+//背景边距
+.ant-pro-basicLayout-content {
+  margin: 0px;
+  padding-top: 5px!important;
+}
+.ant-tabs-bar {
+  margin:0 !important;
+  border-bottom: 1px solid #e8e8e8;
+  outline: none;
+  transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.ant-form-item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  vertical-align: top;
+}
+//分割线
+.ant-divider-horizontal {
+  display: block;
+  clear: both;
+  width: 100%;
+  min-width: 100%;
+}
+.ant-table-thead > tr >{
+  background-color: @card_color;
+}
+.ant-table-thead > tr > th{
+  text-align: center;
+  background-color: #f5f5f5;
+}
+.ant-card{
+  background-color: @base_color !important;
+}
+.ant-tabs-content{
+  border-left: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+}
+.ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
+  background-color: @base_color;
+}
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab{
+  background-color: @black_color !important;
+}
+
+
+.ant-radio-button-wrapper-disabled.ant-radio-button-wrapper-checked {
+
+  color: #fff  !important;
+  background: #1890FF !important;
+  border-color: #1890FF  !important;
+  box-shadow: -1px 0 0 0 #1890FF !important;
+}
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active{
+  background-color: @base_color !important;
+}
+.ant-input{
+  background-color: @base_color !important;
+}
+
+.ant-table-tbody > tr > td{
+  text-align: center;
+}
+.ant-tag{
+  cursor: pointer !important;
+}
+//编辑器
+.bf-content{
+  height: 15em !important;
+  padding-bottom: 10px;
+  overflow: auto;
+  font-size: 16px;
+}
+
+
+
+.login_container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 240px;
+  height: 300px;
+  padding: 100px 40px 40px;
+  box-sizing: content-box;
+
+  .box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 1s;
+    backface-visibility: hidden;
+    color: #d3d7f7;
+    padding: 90px 40px 40px;
+    box-shadow: -15px 15px 15px rgba(0, 0, 0, .4);
+    transform: rotateY(180deg);
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(230deg, rgba(53, 57, 74, 0), #000);
+      // opacity: .8;
+      z-index: -1;
+    }
+
+    &.active {
+      transform: rotateY(0deg);
+    }
+
+    .title {
+      height: 60px;
+      color: #d3d7f7;
+      font-size: 16px;
+      margin-bottom: 0;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .iconfont {
+      color: #fff;
+      opacity: .6;
+    }
+
+    .myInput.ant-input {
+      background-color: transparent;
+      color: #61BFFF;
+      outline: none;
+      border: none;
+      box-shadow: none;
+      padding-right: 0;
+    }
+
+    .btn_box {
+      display: flex;
+      height: 42px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+
+
+      .registerBtn {
+        &:hover {
+          color: #4FA1D9;
+        }
+
+        cursor: pointer;
+        color: #D3D7F7;
+      }
+
+      .loginBtn {
+        &:hover {
+          color: white;
+          background: #4FA1D9;
+
+        }
+
+        cursor: pointer;
+        padding: 10px 50px;
+        border: 2px solid #4FA1D9;
+        border-radius: 50px;
+        background: transparent;
+        font-size: 11px;
+        color: #4FA1D9;
+        transition: all .2s;
+        height: 100%;
+        line-height: 1.5;
+      }
+
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      left: 35px;
+      width: 250px;
+      color: #d3d7f7;
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    //覆盖antd样式，注意只覆盖此页面antd的样式，而其他页面的antd不会被覆盖
+    .ant-col {
+      right: 0%; //过渡要有初始值，否则无效
+      transition: all .3s;
+    }
+
+    .ant-col-pull-1 {
+      right: 4.16666667%; //为什么这里又写一遍？因为上面的优先级会覆盖antd，所以这里在写一遍提高优先级
+    }
+
+    .ant-form-explain {
+      position: absolute;
+      z-index: 99;
+      left: 110%;
+      top: 0;
+      height: 41px;
+    }
+
+    /*更改谷歌浏览器input背景*/
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      /*延迟背景颜色载入*/
+      -webkit-transition-delay: 99999s;
+      -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+    }
+  }
+
+
+}
+
+.inputRedColor .no-form-item-content-elem .multi-value-item{
+  color: red;
+}
+
+.inputGreenColor .no-form-item-content-elem .multi-value-item{
+  color: green;
+}
+
+
