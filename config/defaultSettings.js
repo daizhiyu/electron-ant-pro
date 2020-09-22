@@ -11,7 +11,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Plus',
+  title: 'electron',
   pwa: false,
   iconfontUrl: '',
 };
