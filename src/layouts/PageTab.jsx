@@ -158,7 +158,7 @@ class App extends Component {
     const { pages } = this.state;
     const myPage = Object.assign([], pages);
     // 如果是新开标签页，push到tabs标签页数组中，并设置当前激活页面
-    if (pathname !== '/' && !pages.some(page => page.key === pathname)) {
+    if (pathname !== '/' &&  pathname.indexOf('login') === -1 &&   !pages.some(page => page.key === pathname)) {
       myPage.push({ key: pathname, title: pageName, content: children });
     }
     const keys = {};

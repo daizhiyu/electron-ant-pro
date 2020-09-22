@@ -18,7 +18,7 @@ class LoginForm extends React.Component {
 
 
   onSubmit = () => {
-    router.push('/')
+    router.push('/welcome')
     return;
 
     this.props.form.validateFields((errors, values) => {
