@@ -1,57 +1,171 @@
-/**
- * request 网络请求工具
- * 更详细的 api 文档: https://github.com/umijs/umi-request
- */
-import { extend } from 'umi-request';
-import { notification } from 'antd';
+import { message } from 'antd'
 
-const codeMessage = {
-  200: '服务器成功返回请求的数据。',
-  201: '新建或修改数据成功。',
-  202: '一个请求已经进入后台排队（异步任务）。',
-  204: '删除数据成功。',
-  400: '发出的请求有错误，服务器没有进行新建或修改数据的操作。',
-  401: '用户没有权限（令牌、用户名、密码错误）。',
-  403: '用户得到授权，但是访问是被禁止的。',
-  404: '发出的请求针对的是不存在的记录，服务器没有进行操作。',
-  406: '请求的格式不可得。',
-  410: '请求的资源被永久删除，且不会再得到的。',
-  422: '当创建一个对象时，发生一个验证错误。',
-  500: '服务器发生错误，请检查服务器。',
-  502: '网关错误。',
-  503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。',
-};
-/**
- * 异常处理程序
- */
+const axios=require('axios')
+const crypto = require("crypto");
 
-const errorHandler = error => {
-  const { response } = error;
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.headers.common['Content-Type'] = 'application/json'
+axios.default.timeout = 60000;
 
-  if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText;
-    const { status, url } = response;
-    notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
-    });
-  } else if (!response) {
-    notification.error({
-      description: '您的网络发生异常，无法连接服务器',
-      message: '网络异常',
-    });
+axios.interceptors.response.use({}, error => {
+  if (!error.response) {
+    // eslint-disable-next-line no-param-reassign
+    error.message = '请检查网络设置'
+    return Promise.reject(error)
   }
+  switch (error.response.status) {
+    case 101:
+      break
+    case 401:
+      error.message = '登录已过期,请重新登录!'
+      // 清除用户信息
+      // 登录
+      setTimeout(() => {
 
-  return response;
-};
-/**
- * 配置request请求时的默认参数
- */
+      }, 500)
+      break
+    case 403:
+      error.message = '禁止访问!'
+      break
+    case 408:
+      error.message = '请求超时!'
+      break
+    case 500:
+      error.message = '服务内部异常!'
+      break
+    case 503:
+      error.message = '服务器升级中!'
+      break
+    case 504:
+      error.message = '网关超时!'
+      break
+    default:
+      error.message = '未知错误'
+      break
+  }
+  return Promise.reject(error)
+})
 
-const request = extend({
-  errorHandler,
-  // 默认错误处理
-  credentials: 'include', // 默认请求是否带上cookie
-});
-export default request;
+export function localEcrypt (orignStr,publicKey){
+  const timestamp=new Date().getTime();
+  const md5 = (crypto.createHash('md5')).update(`${ timestamp}`).digest('hex');
+  const key1 = md5; // 32位随机字符串,可自定义生成
+  const iv1 = md5.substr(0,16);// 16位随机字符串,可自定义生成， 与key生成规则无关
+  const hw = encrypt(orignStr, key1, iv1);
+  // 使用公钥加密:
+  const pKey = `-----BEGIN PUBLIC KEY-----\n${  publicKey  }\n-----END PUBLIC KEY-----`;
+  const enc_by_pub = crypto.publicEncrypt(pKey, Buffer.from(key1, "utf8"))
+    .toString("base64");
+  const hash = crypto.createHash("sha256");
+  hash.update(enc_by_pub + iv1 + hw);
+  const h256 = hash.digest("hex");
+  return {hw,enc_by_pub,iv1,h256,timestamp}
+}
+
+function encrypt(text, key, iv) {
+  try {
+    const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+
+    let encrypted = cipher.update(text);
+
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+
+    return encrypted.toString("base64");
+  } catch (e) {
+    console.log(e);
+
+    return null;
+  }
+}
+function decrypt(text, key, iv) {
+  try {
+    const encryptedText = Buffer.from(text, "base64");
+
+    const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+
+    let decrypted = decipher.update(encryptedText);
+
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    return decrypted.toString();
+  } catch (e) {
+    console.log(e);
+
+    return null;
+  }
+}
+
+
+
+export function getHttp(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.get(url, { params })
+      .then(response => {
+        if (response.data.success === false) {
+          message.error(response.data.message)
+          reject(response.data.message)
+        }
+        setTimeout(() => {
+          resolve(response.data)
+        }, 300)
+      })
+      .catch(error => {
+        alert(error)
+        reject(error.message)
+      })
+  })
+}
+
+export function postHttp(url, body, params) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'post',
+      url,
+      params,
+      data: body
+    }).then(response => {
+      setTimeout(() => {
+        if (response.data.success === false) {
+          message.error(response.data.message)
+          reject(response.data.message)
+        }
+        if(response.headers && response.headers.Authorization){
+          setAxiosHeader(response.headers.Authorization)
+        }
+         if(response.data.Head&&response.data.Head.resFlag==='S' ){
+             if(response.data.Head.msgInfo) {
+               message.info(response.data.Head.msgInfo)
+               resolve(response.data.Head.msgInfo)
+             }else {
+               resolve(response.data.Body)
+             }
+
+         }
+
+
+
+
+
+
+      }, 300)
+    }).catch(error => {
+      reject(error.message)
+    })
+  })
+}
+function setAxiosHeader(token) {
+
+  axios.interceptors.request.use(
+    config => {
+
+      if (token) {
+        // eslint-disable-next-line no-param-reassign
+        config.headers.Authorization = token
+      }
+      return config
+    }, err => {
+      return Promise.reject(err)
+    })
+
+
+}
